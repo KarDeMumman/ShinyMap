@@ -31,7 +31,19 @@ ui <- fluidPage(
                           "Greenland municipalities" = "gl-7",
                           "US states" = "us-4",
                           "World countries" = "world-2")
-                        )
+                        ),
+            selectInput("year", "Year:",
+                       c("2010" = 2010,
+                         "2011" = 2011,
+                         "2012" = 2012,
+                         "2013" = 2013,
+                         "2014" = 2014,
+                         "2015" = 2015,
+                         "2016" = 2016,
+                         "2017" = 2017,
+                         "2018" = 2018,
+                         "2019" = 2019)
+                      )
         ),
 
         # Show the map corresponding to the selected dataset
@@ -44,7 +56,7 @@ ui <- fluidPage(
 # Define server logic required to vizualize a map
 server <- function(input, output) {
     getspdata <- reactive({
-        result <- Maps_api(input$dataset)
+        result <- Maps_api(input$dataset, input$year)
         result$spdata
     })
     
