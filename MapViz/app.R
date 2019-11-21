@@ -25,9 +25,6 @@ ui <- fluidPage(
         sidebarPanel(
             selectInput("dataset", "Dataset:",
                         c("Swedish municipalities" = "se-7",
-                          "Swedish counties" = "se-4",
-                          "Norwegian municipalities" = "no-7",
-                          "Norwegian counties" = "no-4",
                           "Danish municipalities" = "dk-7",
                           "Finnish municipalities" = "fi-8",
                           "Swiss municipalities" = "ch-8",
@@ -46,19 +43,19 @@ ui <- fluidPage(
 
 # Define server logic required to vizualize a map
 server <- function(input, output) {
-    geojson <- reactive({
+    getspdata <- reactive({
         result <- Maps_api(input$dataset)
-        result$content
+        result$spdata
     })
     
     output$mymap <- renderLeaflet({
-        #result <- Maps_api(input$dataset)
         map <- leaflet()
         map <- addTiles(map)
-        #map <- setView(map, lng = 18.961619, lat = 58.298584, zoom = 4)
+        #map <- setView(map, lng = 18.961619, lat = 58.298584, zoom = 2)
+        map <- addPolygons(map, data = getspdata())
+        
+        #result <- Maps_api(input$dataset)
         #map <- addGeoJSON(map, result$content)
-        map <- addGeoJSON(map, geojson())
-        #map <- result$map
     })
 }
 
