@@ -7,7 +7,9 @@ This is a Shiny app to illustrate the API wrapper package developed in lab5. The
 The package has to be installed before running the Shiny app:
 
 install.packages('devtools')
+
 devtools::install_github("KarDeMumman/StreetMaps", subdir = "StreetMaps")
+
 library(StreetMaps)
 
 ## Run App
